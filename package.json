@@ -30,5 +30,36 @@
   },
   "peerDependencies": {
     "whatwg-url": "7.1.0"
+  },
+  "pluginType": "elizaos:plugin:1.0.0",
+  "pluginParameters": {
+    "type": "object",
+    "required": ["flowAddress", "flowPrivateKey"],
+    "properties": {
+      "flowAddress": {
+        "type": "string",
+        "description": "Flow native address (must start with 0x)"
+      },
+      "flowPrivateKey": {
+        "type": "string",
+        "description": "Flow private key (must start with 0x)"
+      },
+      "flowNetwork": {
+        "type": "string",
+        "description": "Flow network",
+        "default": "mainnet"
+      },
+      "flowEndpointUrl": {
+        "type": "string",
+        "description": "Flow endpoint URL",
+        "default": "https://mainnet.onflow.org"
+      }
+    }
+  },
+  "pluginEnv": {
+    "FLOW_ADDRESS": "flowAddress",
+    "FLOW_PRIVATE_KEY": "flowPrivateKey",
+    "FLOW_NETWORK": "flowNetwork",
+    "FLOW_ENDPOINT_URL": "flowEndpointUrl"
   }
 }
