@@ -294,13 +294,19 @@ export const transferAction = {
         }
         return true;
     },
-    handler: async (
+    handler: async ({
+        runtime,
+        message,
+        state,
+        options,
+        callback,
+    }: {
         runtime: IAgentRuntime,
         message: Memory,
         state: State,
-        _options: { [key: string]: unknown },
-        callback?: HandlerCallback
-    ): Promise<boolean> => {
+        options: any,
+        callback: HandlerCallback
+    }) => {
         const flowConnector = await getFlowConnectorInstance(runtime);
         const walletProvider = new FlowWalletProvider(runtime, flowConnector);
         const action = new TransferAction(walletProvider);
