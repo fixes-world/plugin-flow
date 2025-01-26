@@ -15,9 +15,7 @@
             }
         }
     },
-    "files": [
-        "dist"
-    ],
+    "files": ["dist"],
     "dependencies": {
         "@elizaos/core": "workspace:*",
         "@onflow/config": "1.5.1",
@@ -47,5 +45,28 @@
     },
     "peerDependencies": {
         "whatwg-url": "7.1.0"
+    },
+    "agentConfig": {
+        "pluginType": "elizaos:client:1.0.0",
+        "pluginParameters": {
+            "FLOW_ADDRESS": {
+                "type": "string",
+                "description": "Flow native address is required and must start with 0x"
+            },
+            "FLOW_PRIVATE_KEY": {
+                "type": "string",
+                "description": "Flow private key for the address is required and must start with 0x"
+            },
+            "FLOW_NETWORK": {
+                "type": "string",
+                "default": "mainnet",
+                "description": "Optional network specification"
+            },
+            "FLOW_ENDPOINT_URL": {
+                "type": "string",
+                "default": "https://rest-mainnet.onflow.org",
+                "description": "Optional Flow RPC endpoint URL"
+            }
+        }
     }
 }
