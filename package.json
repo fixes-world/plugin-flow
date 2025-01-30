@@ -1,5 +1,5 @@
 {
-    "name": "@elizaos/plugin-flow",
+    "name": "@elizaos-plugins/plugin-flow",
     "version": "0.1.8+build.1",
     "type": "module",
     "main": "dist/index.js",
@@ -15,7 +15,9 @@
             }
         }
     },
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "dependencies": {
         "@elizaos/core": "workspace:*",
         "@onflow/config": "1.5.1",
