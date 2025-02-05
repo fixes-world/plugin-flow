@@ -423,7 +423,7 @@ async function queryEvmERC20Decimals(executor, evmContractAddress) {
     (arg, t) => [arg(evmContractAddress, t.String)],
     "0"
   );
-  return parseInt(ret);
+  return Number.parseInt(ret);
 }
 async function queryEvmERC20TotalSupply(executor, evmContractAddress) {
   const ret = await executor.executeScript(
@@ -444,9 +444,9 @@ async function queryAccountBalanceInfo(executor, address) {
   }
   return {
     address: ret.address,
-    balance: parseFloat(ret.balance),
+    balance: Number.parseFloat(ret.balance),
     coaAddress: ret.coaAddress,
-    coaBalance: ret.coaBalance ? parseFloat(ret.coaBalance) : void 0
+    coaBalance: ret.coaBalance ? Number.parseFloat(ret.coaBalance) : void 0
   };
 }
 
@@ -1299,9 +1299,9 @@ Respond with a JSON markdown block containing only the extracted values. Use nul
 `;
 
 // src/actions/transfer.ts
-function isTransferContent(runtime, content) {
+function isTransferContent(_runtime, content) {
   elizaLogger3.log("Content for transfer", content);
-  return (!content.token || typeof content.token === "string" && (isCadenceIdentifier(content.token) || isEVMAddress(content.token))) && typeof content.to === "string" && (isEVMAddress(content.to) || isFlowAddress(content.to)) && (typeof content.amount === "string" || typeof content.amount === "number") && typeof content.matched === "boolean";
+  return content !== null && typeof content === "object" && "token" in content && (!content.token || typeof content.token === "string" && (isCadenceIdentifier(content.token) || isEVMAddress(content.token))) && "to" in content && typeof content.to === "string" && (isEVMAddress(content.to) || isFlowAddress(content.to)) && "amount" in content && (typeof content.amount === "string" || typeof content.amount === "number") && "matched" in content && typeof content.matched === "boolean";
 }
 var USE_KEY_INDEX = 0;
 var TransferAction = class {
@@ -1313,13 +1313,14 @@ var TransferAction = class {
    * Process the messages and generate the transfer content
    */
   async processMessages(runtime, message, state) {
-    if (!state) {
-      state = await runtime.composeState(message);
+    let currentState = state;
+    if (!currentState) {
+      currentState = await runtime.composeState(message);
     } else {
-      state = await runtime.updateRecentMessageState(state);
+      currentState = await runtime.updateRecentMessageState(currentState);
     }
     const transferContext = composeContext({
-      state,
+      state: currentState,
       template: transferTemplate
     });
     const recommendations = await generateObjectArray({
@@ -1354,7 +1355,7 @@ var TransferAction = class {
     const logPrefix = `Address: ${resp.signer.address}, using keyIdex: ${resp.signer.keyIndex}
 `;
     const recipient = content.to;
-    const amount = typeof content.amount === "number" ? content.amount : parseFloat(content.amount);
+    const amount = typeof content.amount === "number" ? content.amount : Number.parseFloat(content.amount);
     const accountInfo = await queryAccountBalanceInfo(
       this.walletProvider,
       this.walletProvider.address
@@ -1398,7 +1399,7 @@ var TransferAction = class {
           (arg, t) => [
             arg(amount.toFixed(1), t.UFix64),
             arg(recipient, t.Address),
-            arg("0x" + tokenAddr, t.Address),
+            arg(`0x${tokenAddr}`, t.Address),
             arg(tokenContractName, t.String)
           ],
           authz
@@ -1408,7 +1409,7 @@ var TransferAction = class {
           this.walletProvider,
           content.token
         );
-        const adjustedAmount = BigInt(amount * Math.pow(10, decimals));
+        const adjustedAmount = BigInt(amount * 10 ** decimals);
         elizaLogger3.log(
           `${logPrefix} Sending ${adjustedAmount} ${content.token}(EVM) to ${recipient}...`
         );
@@ -1441,23 +1442,22 @@ Transaction: [${resp.txid}](${txURL})`,
         });
       }
     } catch (e) {
-      elizaLogger3.error("Error in sending transaction:", e.message);
+      elizaLogger3.error("Error in sending transaction:", e);
       if (callback) {
         callback({
           text: `${logPrefix} Unable to process transfer request. Error in sending transaction.`,
           content: {
-            error: e.message
+            error: e instanceof Error ? e.message : String(e)
           }
         });
       }
       if (e instanceof Exception) {
         throw e;
-      } else {
-        throw new Exception(
-          50100,
-          "Error in sending transaction: " + e.message
-        );
       }
+      throw new Exception(
+        50100,
+        `Error in sending transaction: ${e instanceof Error ? e.message : String(e)}`
+      );
     }
     elizaLogger3.log("Completed Flow Plugin's SEND_COIN handler.");
     return resp;
@@ -1498,7 +1498,7 @@ var transferAction = {
       elizaLogger3.error("Error in processing messages:", err.message);
       if (callback) {
         callback({
-          text: "Unable to process transfer request. Invalid content: " + err.message,
+          text: `Unable to process transfer request. Invalid content: ${err.message}`,
           content: {
             error: "Invalid content"
           }
