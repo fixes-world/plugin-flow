@@ -19,6 +19,7 @@
         "dist"
     ],
     "dependencies": {
+        "@elizaos/core": "0.25.8",
         "@onflow/config": "1.5.1",
         "@onflow/fcl": "1.13.1",
         "@onflow/typedefs": "1.4.0",
