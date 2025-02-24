@@ -1,4 +1,4 @@
-# @elizaos/plugin-flow
+# @elizaos-plugins/plugin-flow
 
 A plugin for interacting with the Flow blockchain within the ElizaOS ecosystem.
 
@@ -9,7 +9,7 @@ This plugin provides essential functionality for interacting with the Flow block
 ## Installation
 
 ```bash
-pnpm install @elizaos/plugin-flow
+pnpm install @elizaos-plugins/plugin-flow
 ```
 
 ## Configuration
