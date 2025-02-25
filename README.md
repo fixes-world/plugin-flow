@@ -28,7 +28,7 @@ FLOW_ENDPOINT_URL=<Custom RPC endpoint URL (optional)>
 ### Basic Integration
 
 ```typescript
-import { flowPlugin } from "@elizaos/plugin-flow";
+import { flowPlugin } from "@elizaos-plugins/plugin-flow";
 ```
 
 ### Example Usage
