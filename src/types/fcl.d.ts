@@ -213,7 +213,7 @@ declare module "@onflow/fcl" {
         signatures: TransactionSignature[];
     }
 
-    type ArgumentFunction = (
+    export type ArgumentFunction = (
         argFunc: typeof arg,
         t: typeof ftypes
     ) => Array<Argument>;

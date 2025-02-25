@@ -21,7 +21,7 @@
     "dependencies": {
         "@elizaos/core": "0.25.8",
         "@onflow/config": "1.5.1",
-        "@onflow/fcl": "1.13.1",
+        "@onflow/fcl": "1.13.4",
         "@onflow/typedefs": "1.4.0",
         "bignumber.js": "9.1.2",
         "bs58": "6.0.0",
@@ -34,6 +34,7 @@
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
         "@types/elliptic": "6.4.18",
+        "@types/node": "^22.13.5",
         "@types/uuid": "10.0.0",
         "tsup": "8.3.5",
         "vitest": "2.1.9"
