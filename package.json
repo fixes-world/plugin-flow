@@ -1,6 +1,6 @@
 {
     "name": "@elizaos-plugins/plugin-flow",
-    "version": "0.1.9",
+    "version": "0.2.0",
     "type": "module",
     "main": "dist/index.js",
     "module": "dist/index.js",
@@ -20,11 +20,12 @@
     ],
     "dependencies": {
         "@elizaos/core": "0.25.8",
+        "@elizaos-plugins/plugin-di": "github:fixes-world/plugin-di",
         "@onflow/config": "1.5.1",
         "@onflow/fcl": "1.13.4",
         "@onflow/typedefs": "1.4.0",
-        "bignumber.js": "9.1.2",
-        "bs58": "6.0.0",
+        "inversify": "^6.2.1",
+        "reflect-metadata": "^0.2.2",
         "elliptic": "6.6.1",
         "node-cache": "5.1.2",
         "sha3": "2.1.4",
@@ -36,21 +37,25 @@
         "@types/elliptic": "6.4.18",
         "@types/node": "^22.13.5",
         "@types/uuid": "10.0.0",
+        "dotenv": "16.4.5",
         "tsup": "8.3.5",
         "vitest": "2.1.9"
+    },
+    "peerDependencies": {
+        "whatwg-url": "7.1.0",
+        "inversify": "6.2.1",
+        "reflect-metadata": "0.2.2"
     },
     "scripts": {
         "lines": "find . \\( -name '*.cdc' -o -name '*.ts' \\) -not -path '*/node_modules/*' -not -path '*/tests/*' -not -path '*/deps/*' -not -path '*/dist/*' -not -path '*/imports*' | xargs wc -l",
         "build": "tsup --format esm --dts",
         "dev": "tsup --format esm --dts --watch",
         "test": "vitest run",
+        "clean": "rm -rf dist",
         "lint": "biome lint .",
         "lint:fix": "biome check --apply .",
         "format": "biome format .",
         "format:fix": "biome format --write ."
-    },
-    "peerDependencies": {
-        "whatwg-url": "7.1.0"
     },
     "agentConfig": {
         "pluginType": "elizaos:client:1.0.0",
