@@ -1,5 +1,7 @@
 import type * as fcl from "@onflow/fcl";
-import type { Account } from "@onflow/typedefs";
+import type { arg } from "@onflow/fcl";
+import type * as ftypes from "@onflow/types";
+import type { TransactionStatus, Account } from "@onflow/typedefs";
 
 export interface IFlowScriptExecutor {
     /**
@@ -33,8 +35,10 @@ export interface IFlowSigner {
     buildAuthorization(
         accountIndex?: number,
         privateKey?: string
-    ): (acct: Account) => Promise<fcl.AuthZ>;
+    ): (acct: Account) => Promise<fcl.AuthZ> | fcl.AuthZ;
 }
+
+// ----------- General Definitions -----------
 
 export interface TransactionResponse {
     signer: {
@@ -50,3 +54,40 @@ export interface FlowAccountBalanceInfo {
     coaAddress?: string;
     coaBalance?: number;
 }
+
+export interface ScriptQueryResponse {
+    ok: boolean;
+    data?: unknown;
+    error?: string | Record<string, unknown>;
+    errorMessage?: string;
+}
+
+export type ArgumentFunction = (
+    argFunc: typeof arg,
+    t: typeof ftypes,
+) => Array<{
+    value: unknown;
+    xform: unknown;
+}>;
+
+export type TransactionStatusCallback = (
+    txId: string,
+    status: TransactionStatus,
+    errorMsg?: string,
+) => Promise<void>;
+
+export type TransactionCallbacks = {
+    onStatusUpdated?: TransactionStatusCallback;
+    onFinalized?: TransactionStatusCallback;
+    onSealed?: TransactionStatusCallback;
+};
+
+export type TransactionTrackingPayload = {
+    txId: string;
+    unsubscribe: () => void;
+};
+
+export type TransactionSentResponse = {
+    txId: string;
+    index: number;
+};

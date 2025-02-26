@@ -96,12 +96,11 @@ export class FlowConnector implements IFlowScriptExecutor {
                         ? [mainAuthz]
                         : [mainAuthz, ...extraAuthz],
             });
-        } else {
-            return await fcl.mutate({
-                cadence: code,
-                args: args,
-            });
         }
+        return await fcl.mutate({
+            cadence: code,
+            args: args,
+        });
     }
 
     /**

@@ -6,31 +6,29 @@ export default defineConfig({
     sourcemap: true,
     clean: true,
     format: ["esm"], // Ensure you're targeting CommonJS
+    platform: "node",
+    target: "node22",
+    bundle: true,
+    splitting: true, // Add this for better code splitting
+    dts: true, // Generate declaration files
     loader: {
         ".cdc": "text",
     },
     external: [
-        "@elizaos/core",
         "dotenv", // Externalize dotenv to prevent bundling
         "fs", // Externalize fs to use Node.js built-in module
         "path", // Externalize other built-ins if necessary
-        "@reflink/reflink",
-        "@node-llama-cpp",
-        "https",
-        "http",
-        "agentkeepalive",
-        "safe-buffer",
-        "base-x",
-        "bs58",
-        "borsh",
-        "stream",
-        "buffer",
-        "querystring",
-        "amqplib",
+        "url", // Externalize url to use Node.js built-in module
+        "https", // Externalize https to use Node.js built-in module
+        "http", // Externalize http to use Node.js built-in module
         // Add other modules you want to externalize
         "@onflow/fcl",
         "@onflow/types",
         "sha3",
         "elliptic",
+        "inversify",
+        "reflect-metadata",
+        "zod",
+        "node-cache",
     ],
 });

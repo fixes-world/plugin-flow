@@ -91,6 +91,7 @@ declare module "@onflow/fcl" {
         scoped?: Record<string, string>;
         type: string;
         uid: string;
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         data?: any;
         network?: string;
     }
@@ -121,7 +122,9 @@ declare module "@onflow/fcl" {
     }
 
     export interface Argument {
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         value: any;
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         xform: any; // FType
     }
 
@@ -129,7 +132,7 @@ declare module "@onflow/fcl" {
 
     export interface TransactionResult {
         snapshot: () => TransactionStatusTypes;
-        subscribe: (callback?: TxSubCallback) => Promise<() => void>;
+        subscribe: (callback?: TxSubCallback) => () => void;
         onceFinalized: (callback?: TxSubCallback) => Promise<TransactionStatus>;
         onceExecuted: (callback?: TxSubCallback) => Promise<TransactionStatus>;
         onceSealed: (callback?: TxSubCallback) => Promise<TransactionStatus>;
@@ -187,6 +190,7 @@ declare module "@onflow/fcl" {
 
     type IJsonArray = Array<AnyJson>;
 
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     export type Decoder = (dictionary, decoders, stack) => Record<any, any>;
     export type DecoderGroup = Record<string, Decoder>;
     export type Response = IJsonObject;
@@ -207,8 +211,10 @@ declare module "@onflow/fcl" {
         id: string;
         parentId: string;
         height: number;
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         timestamp: any;
         collectionGuarantees: CollectionGuaranteeObject;
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         blockSeals: any;
         signatures: TransactionSignature[];
     }
@@ -233,12 +239,16 @@ declare module "@onflow/fcl" {
         authorizations?: FclAuthorization[];
     }): Promise<string>;
 
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     export function send(args: any, opts?: any): Promise<Response>;
 
     export function decode(
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         decodeInstructions: any,
         customDecoders?: DecoderGroup,
-        stack?: Array<any>
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        stack?: Array<any>,
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     ): Promise<any>;
 
     export function getChainId(): Promise<string>;
@@ -249,7 +259,7 @@ declare module "@onflow/fcl" {
 
     export function withPrefix(address: string): string;
 
-    export function tx(transactionId: any): TransactionResult;
+    export function tx(transactionId: string): TransactionResult;
 
     // tx checker
     tx.isUnknown = (_tx: TransactionStatus) => boolean;
@@ -323,6 +333,7 @@ declare module "@onflow/fcl" {
     export const WalletUtils: WalletUtils;
 
     export interface PluginRegistry {
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         add(plugin: any): void;
     }
     export const pluginRegistry: PluginRegistry;
@@ -346,12 +357,14 @@ declare module "@onflow/fcl" {
 
     export function build(fns?: Pipe[]): Pipe;
     export function script(code: string): Interaction;
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     export function transaction(...args: any): Interaction;
 
     export function payer(authz: FclAuthorization): Pipe;
     export function proposer(authz: FclAuthorization): Pipe;
     export function authorizations(ax: FclAuthorization[]): Pipe;
     export function args(ax: Argument[]): Pipe;
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     export function arg(value: any, xform: any): Argument;
     export function limit(computeLimit: number): Pipe;
 }
