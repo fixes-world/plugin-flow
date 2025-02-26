@@ -19,7 +19,6 @@
         "dist"
     ],
     "dependencies": {
-        "@elizaos/core": "0.25.8",
         "@elizaos-plugins/plugin-di": "github:fixes-world/plugin-di",
         "@onflow/config": "1.5.1",
         "@onflow/fcl": "1.13.4",
@@ -42,6 +41,7 @@
         "vitest": "2.1.9"
     },
     "peerDependencies": {
+        "@elizaos/core": "0.25.8",
         "whatwg-url": "7.1.0",
         "inversify": "6.2.1",
         "reflect-metadata": "0.2.2"
