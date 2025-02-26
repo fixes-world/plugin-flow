@@ -19,12 +19,9 @@
         "dist"
     ],
     "dependencies": {
-        "@elizaos-plugins/plugin-di": "github:fixes-world/plugin-di",
         "@onflow/config": "1.5.1",
         "@onflow/fcl": "1.13.4",
         "@onflow/typedefs": "1.4.0",
-        "inversify": "^6.2.1",
-        "reflect-metadata": "^0.2.2",
         "elliptic": "6.6.1",
         "node-cache": "5.1.2",
         "sha3": "2.1.4",
@@ -42,6 +39,7 @@
     },
     "peerDependencies": {
         "@elizaos/core": "0.25.8",
+        "@elizaos-plugins/plugin-di": "github:fixes-world/plugin-di",
         "whatwg-url": "7.1.0",
         "inversify": "6.2.1",
         "reflect-metadata": "0.2.2"
