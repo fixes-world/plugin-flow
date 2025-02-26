@@ -8,9 +8,13 @@ This plugin provides essential functionality for interacting with the Flow block
 
 ## Installation
 
-```bash
+To install the plugin, use the following command:
+
+TBD: Using elizaos-cli
+
+<!-- ```bash
 pnpm install @elizaos-plugins/plugin-flow
-```
+``` -->
 
 ## Configuration
 
@@ -66,7 +70,6 @@ interface TransferContent {
     token: string | null; // null for native FLOW, Cadence identifier, or EVM address
     amount: string; // Amount to transfer
     to: string; // Recipient address (Flow or EVM)
-    matched: boolean; // Indicates if token and address types match
 }
 ```
 
@@ -125,17 +128,6 @@ pnpm run build
 pnpm run test
 ```
 
-## Future Enhancements
-
-- Support for NFT transfers
-- Enhanced error handling and recovery
-- Additional Flow blockchain interactions
-- Expanded token support
-
-## Contributing
-
-Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
-
 ## Credits
 
 This plugin integrates with and builds upon several key technologies:
@@ -147,7 +139,6 @@ This plugin integrates with and builds upon several key technologies:
 
 Special thanks to:
 
-- The Dapper Labs team for developing Flow
 - The Flow Developer community
 - The FCL SDK maintainers
 - The Cadence language designers
